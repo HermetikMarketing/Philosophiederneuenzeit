@@ -26,12 +26,18 @@ Neue Publikation: in `src/data/werk.js` einen Eintrag in die passende Liste einf
 
 Jeder Push auf `main` baut die Seite über GitHub Actions und veröffentlicht sie auf GitHub Pages (Vorschau unter `https://flowtimotion-cyber.github.io/Philosophiederneuenzeit/`, mit `noindex`).
 
-### Umzug der Domain von Jimdo
+### Domain bei ALL-INKL.COM mit GitHub Pages verbinden
 
-1. Domain bei Jimdo freigeben (Auth-Code) und zu einem neuen Registrar umziehen.
-2. DNS: `www` als CNAME auf `flowtimotion-cyber.github.io`, Apex-Domain mit A-Records auf GitHub Pages (185.199.108.153, .109.153, .110.153, .111.153).
-3. Repo → Settings → Pages → Custom domain `www.philosophiederneuenzeit.de`, HTTPS erzwingen.
-4. Repo → Settings → Secrets and variables → Variables: `CUSTOM_DOMAIN` = `true`. Danach neu deployen.
+Die Domain liegt bei ALL-INKL.COM, die Seite selbst bleibt auf GitHub Pages.
+
+1. **ALL-INKL KAS → Tools → DNS-Einstellungen** für philosophiederneuenzeit.de:
+   - `A`-Records für die Hauptdomain (Name leer bzw. `@`): `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - `CNAME` für `www` auf `flowtimotion-cyber.github.io`
+   - vorhandene A-Records oder Weiterleitungen auf den ALL-INKL-Webspace für diese Domain entfernen
+   - MX-Einträge nur anfassen, wenn über die Domain E-Mail laufen soll (aktuell läuft die E-Mail über t-online)
+2. **ALL-INKL KAS → Vertragsdaten**: Vertrag zur Auftragsverarbeitung (AVV) abschließen, falls noch nicht geschehen.
+3. Wenn die DNS-Einträge greifen (bis zu 24 h): Repo → Settings → Pages → Custom domain `www.philosophiederneuenzeit.de` eintragen, nach der Prüfung „Enforce HTTPS“ aktivieren.
+4. Repo → Settings → Secrets and variables → Actions → Variables: `CUSTOM_DOMAIN` = `true` anlegen und den Workflow neu starten. Ab dann wird ohne Unterpfad und ohne `noindex` gebaut.
 
 ## Offene Punkte (Freigabe durch die Autorin)
 
