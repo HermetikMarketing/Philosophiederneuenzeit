@@ -24,8 +24,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Vorschau unter github.io/<repo>/, solange die Domain noch bei Jimdo liegt.
-      # Nach dem Domain-Umzug: Variable CUSTOM_DOMAIN=true setzen (Settings → Variables), dann wird ohne Unterpfad gebaut.
+      # Ohne eigene Domain liegt die Seite unter github.io/<repo>/ und wird mit diesem Unterpfad gebaut.
+      # Mit eigener Domain (Variable CUSTOM_DOMAIN=true unter Settings → Variables) wird ohne Unterpfad gebaut.
       - name: Build
         run: npm run build
         env:
