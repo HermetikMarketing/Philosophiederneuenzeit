@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// BASE_PATH erlaubt eine Vorschau unter github.io/philosophiederneuenzeit/,
-// solange die Domain noch bei Jimdo liegt. Für die Live-Domain bleibt sie leer.
+// BASE_PATH erlaubt eine Vorschau in einem Unterverzeichnis.
+// Default-Wert ist "/".
 const base = process.env.BASE_PATH || '/';
 
 export default defineConfig({
