@@ -7,6 +7,7 @@ import { taetigkeiten } from '../data/werk.js';
   <header class="page-head">
     <div class="wrap">
       <h1>Historisch denken, gegenwartsbezogen fragen</h1>
+      <p class="wer">Dr. Magdalena Börsig-Hover, Philosophin und Historikerin</p>
     </div>
   </header>
 
@@ -15,8 +16,8 @@ import { taetigkeiten } from '../data/werk.js';
       <figure class="foto" data-reveal="bild">
         <img src={u('img/portrait-blazer-1122.webp')} alt="Porträt von Dr. Magdalena Börsig-Hover" width="1122" height="1402" />
       </figure>
+      <p class="lead">Meine wissenschaftliche Arbeit bewegt sich zwischen Geschichte, Philosophie, Theologie und Diplomatiegeschichte.</p>
       <div class="text">
-        <p class="lead">Meine wissenschaftliche Arbeit bewegt sich zwischen Geschichte, Philosophie, Theologie und Diplomatiegeschichte.</p>
         <p>Mich interessieren nicht nur historische Ereignisse oder philosophische Texte als solche, sondern die dahinterliegende Frage nach den Bedingungen menschlicher Orientierung. Dabei verbindet sich die genaue Arbeit am historischen Detail mit einer systematischen Frage: Was bedeutet es, in einer Zeit des Umbruchs verantwortlich zu urteilen und zu handeln?</p>
         <p>Der Forschungsbogen reicht vom europäischen Umbruch des 19. Jahrhunderts über die geistige Krisendiagnose des 20. Jahrhunderts bis zu den Orientierungsfragen des 21. Jahrhunderts. Im Zentrum steht die Frage, wie der Mensch in Zeiten tiefgreifender Veränderung Wirklichkeit deutet, Wahrheit prüft und zu verantwortlicher Entscheidung gelangt.</p>
         <p>Das wissenschaftliche Profil verbindet historische Rekonstruktion, philosophische und theologische Ideengeschichte, Rezeptionsforschung und gegenwartsbezogene Reflexion. Die Vergangenheit wird nicht als abgeschlossener Gegenstand untersucht, sondern als Ort, an dem sich Fragen nach Person, Freiheit, Wahrheit, Verantwortung und Entscheidung exemplarisch beobachten lassen.</p>
@@ -26,6 +27,9 @@ import { taetigkeiten } from '../data/werk.js';
   </section>
 
   <section class="sect weg-sect">
+    <figure class="wrap landschaft">
+      <img src={u('img/burg-see-1200.webp')} srcset={`${u('img/burg-see-800.webp')} 800w, ${u('img/burg-see-1200.webp')} 1200w`} sizes="(max-width: 76rem) 100vw, 72rem" alt="Burgruine am Ufer eines stillen Sees, dahinter schneebedeckte Berge im Nebel, alles spiegelt sich im Wasser" width="1200" height="801" loading="lazy" />
+    </figure>
     <div class="wrap folio">
       <p class="marg">Mein Weg</p>
       <div class="weg">
@@ -55,10 +59,23 @@ import { taetigkeiten } from '../data/werk.js';
   </section>
 </Base>
 <style>
-  .profil { display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 38rem); gap: clamp(2rem, 6vw, 6rem); justify-content: center; align-items: start; }
-  .profil figure { margin: 0; position: sticky; top: 6rem; }
+  .page-head .wer { font-family: var(--sans); font-size: .95rem; color: var(--ink-soft); margin: 0; }
+  .profil {
+    display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 38rem);
+    grid-template-areas: "foto lead" "foto text";
+    column-gap: clamp(2rem, 6vw, 6rem); justify-content: center; align-items: start;
+  }
+  .profil figure { grid-area: foto; margin: 0; position: sticky; top: 6rem; }
+  .profil .lead { grid-area: lead; }
+  .profil .text { grid-area: text; }
   .name-hinweis { font-size: 1rem; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: 2rem; }
-  @media (max-width: 52rem) { .profil { grid-template-columns: 1fr; } .profil figure { position: static; max-width: 22rem; } }
+  @media (max-width: 52rem) {
+    .profil { grid-template-columns: minmax(0, 1fr); grid-template-areas: "lead" "foto" "text"; }
+    .profil figure { position: static; width: min(100%, 20rem); margin: .5rem 0 2.25rem; }
+  }
+  .landschaft { margin: 0 auto clamp(3rem, 6vw, 5rem); }
+  .landschaft img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 42%; }
+  @media (max-width: 52rem) { .landschaft { padding: 0; } .landschaft img { aspect-ratio: 4 / 3; object-position: 62% 45%; } }
   .weg-sect { background: var(--paper-2); }
   .taet { padding-left: 1.1rem; margin: 0; }
   .taet li { margin-bottom: .8rem; line-height: 1.5; }
