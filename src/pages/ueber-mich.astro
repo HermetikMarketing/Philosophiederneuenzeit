@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { u } from '../lib.js';
 import { taetigkeiten } from '../data/werk.js';
 ---
-<Base title="Über mich" path="ueber-mich/" image="img/portrait-blazer-1122.webp" description="Dr. Magdalena Börsig-Hover: Philosophin und Historikerin. Forschung zu Person, Freiheit, Wahrheit und Entscheidung, von der Diplomatie des 19. Jahrhunderts bis zur digitalen Gegenwart.">
+<Base title="Über mich" path="ueber-mich/" image="img/portrait-schreibtisch-855.webp" description="Dr. Magdalena Börsig-Hover: Philosophin und Historikerin. Forschung zu Person, Freiheit, Wahrheit und Entscheidung, von der Diplomatie des 19. Jahrhunderts bis zur digitalen Gegenwart.">
   <header class="page-head">
     <div class="wrap">
       <h1>Historisch denken, gegenwartsbezogen fragen</h1>
@@ -14,7 +14,7 @@ import { taetigkeiten } from '../data/werk.js';
   <section class="sect">
     <div class="wrap profil">
       <figure class="foto" data-reveal="bild">
-        <img src={u('img/portrait-blazer-1122.webp')} alt="Porträt von Dr. Magdalena Börsig-Hover" width="1122" height="1402" />
+        <img src={u('img/portrait-schreibtisch-855.webp')} alt="Dr. Magdalena Börsig-Hover am Schreibtisch in ihrer Bibliothek, im Hintergrund Bücherregale und eine Europakarte" width="855" height="468" />
       </figure>
       <p class="lead">Meine wissenschaftliche Arbeit bewegt sich zwischen Geschichte, Philosophie, Theologie und Diplomatiegeschichte.</p>
       <div class="text">
@@ -28,7 +28,7 @@ import { taetigkeiten } from '../data/werk.js';
 
   <section class="sect weg-sect">
     <figure class="wrap landschaft">
-      <img src={u('img/burg-see-1200.webp')} srcset={`${u('img/burg-see-800.webp')} 800w, ${u('img/burg-see-1200.webp')} 1200w`} sizes="(max-width: 76rem) 100vw, 72rem" alt="Burgruine am Ufer eines stillen Sees, dahinter schneebedeckte Berge im Nebel, alles spiegelt sich im Wasser" width="1200" height="801" loading="lazy" />
+      <img src={u('img/schreibtisch-karte-945.webp')} alt="Schreibtisch mit historischer Europakarte, einem Telegramm des k. u. k. Ministeriums des Äußern, Füllfederhalter und einem aufgeschlagenen Buch" width="945" height="317" loading="lazy" />
     </figure>
     <div class="wrap folio">
       <p class="marg">Mein Weg</p>
@@ -61,7 +61,7 @@ import { taetigkeiten } from '../data/werk.js';
 <style>
   .page-head .wer { font-family: var(--sans); font-size: .95rem; color: var(--ink-soft); margin: 0; }
   .profil {
-    display: grid; grid-template-columns: minmax(0, 24rem) minmax(0, 38rem);
+    display: grid; grid-template-columns: minmax(0, 28rem) minmax(0, 36rem);
     grid-template-areas: "foto lead" "foto text";
     column-gap: clamp(2rem, 6vw, 6rem); justify-content: center; align-items: start;
   }
@@ -71,11 +71,11 @@ import { taetigkeiten } from '../data/werk.js';
   .name-hinweis { font-size: 1rem; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 1rem; margin-top: 2rem; }
   @media (max-width: 52rem) {
     .profil { grid-template-columns: minmax(0, 1fr); grid-template-areas: "lead" "foto" "text"; }
-    .profil figure { position: static; width: min(100%, 20rem); margin: .5rem 0 2.25rem; }
+    .profil figure { position: static; width: 100%; margin: .5rem 0 2.25rem; }
   }
   .landschaft { margin: 0 auto clamp(3rem, 6vw, 5rem); }
-  .landschaft img { display: block; width: 100%; height: auto; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 42%; }
-  @media (max-width: 52rem) { .landschaft { padding: 0; } .landschaft img { aspect-ratio: 4 / 3; object-position: 62% 45%; } }
+  .landschaft img { display: block; width: 100%; height: auto; aspect-ratio: 945 / 317; object-fit: cover; }
+  @media (max-width: 52rem) { .landschaft { padding: 0; } .landschaft img { aspect-ratio: 16 / 9; object-position: 55% 50%; } }
   .weg-sect { background: var(--paper-2); }
   .taet { padding-left: 1.1rem; margin: 0; }
   .taet li { margin-bottom: .8rem; line-height: 1.5; }
