@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { u } from '../../lib.js';
+
+const beitraege = (await getCollection('blog', ({ data }) => !data.entwurf))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const datum = (d: Date) => d.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title="Blog" path="blog/" description="Beiträge von Dr. Magdalena Börsig-Hover zu Geschichte, Diplomatie und Philosophie, verständlich erklärt: von Mayerling 1889 bis zur Quellenkritik heute.">
+  <header class="page-head">
+    <div class="wrap">
+      <h1>Blog</h1>
+      <p>Fragen aus Geschichte und Philosophie, verständlich erklärt. Die Beiträge entstehen aus meinen Vorträgen und Forschungstexten.</p>
+    </div>
+  </header>
+
+  <section class="sect">
+    <div class="wrap folio">
+      <p class="marg">Beiträge</p>
+      <ol class="beitraege">
+        {beitraege.map((b) => (
+          <li>
+            <p class="meta"><time datetime={b.data.date.toISOString().slice(0, 10)}>{datum(b.data.date)}</time></p>
+            <h2><a href={u(`blog/${b.id}/`)}>{b.data.title}</a></h2>
+            <p>{b.data.teaser}</p>
+            <a class="more" href={u(`blog/${b.id}/`)} aria-label={`Weiterlesen: ${b.data.title}`}>Weiterlesen</a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .beitraege { list-style: none; padding: 0; margin: 0; }
+  .beitraege li { padding: 0 0 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+  .beitraege li:last-child { border-bottom: 0; }
+  .beitraege h2 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.2rem); }
+  .beitraege h2 a { text-decoration: none; }
+  .meta { font-family: var(--sans); font-size: .82rem; color: var(--sepia); margin-bottom: .5rem; }
+</style>

@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { u, site } from '../../lib.js';
+
+export async function getStaticPaths() {
+  const beitraege = await getCollection('blog', ({ data }) => !data.entwurf);
+  return beitraege.map((b) => ({ params: { slug: b.id }, props: { b } }));
+}
+
+const { b } = Astro.props;
+const { Content } = await render(b);
+const path = `blog/${b.id}/`;
+const datum = (d: Date) => d.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+
+const artikel = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: b.data.title,
+  description: b.data.description,
+  datePublished: iso(b.data.date),
+  dateModified: iso(b.data.updated ?? b.data.date),
+  inLanguage: 'de',
+  keywords: b.data.stichworte.join(', '),
+  author: { '@type': 'Person', name: site.name, url: new URL(u('ueber-mich/'), Astro.site).href },
+  mainEntityOfPage: new URL(u(path), Astro.site).href,
+};
+---
+<Base title={b.data.title} path={path} description={b.data.description} jsonld={artikel}>
+  <article>
+    <header class="page-head">
+      <div class="wrap">
+        <p class="zurueck"><a href={u('blog/')}>Blog</a></p>
+        <h1 class="titel">{b.data.title}</h1>
+        <p class="meta">{site.name} · <time datetime={iso(b.data.date)}>{datum(b.data.date)}</time></p>
+      </div>
+    </header>
+
+    <section class="sect">
+      <div class="wrap folio">
+        <p class="marg">{b.data.stichworte[0] ?? 'Blog'}</p>
+        <div class="prosa">
+          <Content />
+        </div>
+        <p class="zurueck-unten"><a class="more" href={u('blog/')}>Alle Beiträge</a></p>
+      </div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .titel { max-width: 22ch; font-size: clamp(2.2rem, 1.5rem + 2.6vw, 3.8rem); }
+  .zurueck { font-family: var(--sans); font-size: .85rem; margin-bottom: 1.2rem; }
+  .zurueck a { text-decoration: none; color: var(--sepia); }
+  .page-head .meta { font-family: var(--sans); font-size: .9rem; color: var(--sepia); margin-top: .6rem; }
+  .zurueck-unten { margin-top: 3rem; }
+  .prosa :global(h2) { font-size: clamp(1.55rem, 1.3rem + .9vw, 2.1rem); margin-top: 2.6rem; }
+  .prosa :global(h2:first-child) { margin-top: 0; }
+  .prosa :global(table) { width: 100%; border-collapse: collapse; margin: 1.5rem 0 2rem; font-size: .92em; }
+  .prosa :global(th) { text-align: left; font-family: var(--sans); font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--sepia); border-bottom: 1px solid var(--ink); padding: .4rem .6rem .4rem 0; }
+  .prosa :global(td) { border-bottom: 1px solid var(--rule); padding: .55rem .6rem .55rem 0; vertical-align: top; line-height: 1.4; }
+  .prosa :global(blockquote) { margin: 2rem 0; padding: 0 0 0 1.5rem; border-left: 2px solid var(--seal); font-size: 1.3em; line-height: 1.35; font-style: italic; font-weight: 400; }
+  .prosa :global(blockquote p) { margin: 0; }
+  .prosa :global(ol), .prosa :global(ul) { padding-left: 1.3rem; margin: 0 0 1.5rem; }
+  .prosa :global(li) { margin-bottom: .4rem; }
+  .prosa :global(li::marker) { color: var(--seal); }
+  @media (max-width: 40rem) { .prosa :global(table) { font-size: .82em; } }
+</style>

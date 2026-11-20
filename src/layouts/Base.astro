@@ -19,6 +19,7 @@ const nav = [
   { href: 'zeit-der-entscheidung/', label: 'Zeit der Entscheidung' },
   { href: 'publikationen/', label: 'Publikationen' },
   { href: 'lehre-und-vortraege/', label: 'Lehre und Vorträge' },
+  { href: 'blog/', label: 'Blog' },
   { href: 'ueber-mich/', label: 'Über mich' },
   { href: 'kontakt/', label: 'Kontakt' },
 ];
@@ -120,7 +121,7 @@ const ld = [person, ...(jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [
       '.page-head h1', '.page-head p', '.page-head .toc',
       '.folio > *', '.felder > article', '.bib > li', '.zeilen > li', '.rgruppe',
       '.person-grid > *', '.buch-text > *', '.kontakt > *', '.profil .text > *', '.taet > li',
-      '.leit blockquote', '.ziele > li', '.weg > *',
+      '.leit blockquote', '.ziele > li', '.weg > *', '.beitraege > li',
     ];
     document.querySelectorAll<HTMLElement>(auto.join(',')).forEach((el) => {
       if (el.hasAttribute('data-reveal') || el.closest('[data-reveal]')) return;
